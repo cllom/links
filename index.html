@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <div id="login-modal">
+    <div id="modal-content">
+      <button id="google-login">
+        Sign in with Google
+      </button>
+      <div id="error"></div>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCV_eZyjilp8Af6961ubU6G_dqzPPTHpj0",
+      authDomain: "login-links-1dc32.firebaseapp.com",
+      projectId: "login-links-1dc32",
+      storageBucket: "login-links-1dc32.appspot.com",
+      messagingSenderId: "910426966101",
+      appId: "1:910426966101:web:df82e72c38d5677c5eacdc",
+      measurementId: "G-E2BLN5VZWG"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const allowedEmails = [
+      "marcellotania1995@gmail.com",
+      "another@email.com"
+    ];
+
+    document.getElementById('google-login').onclick = async () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      try {
+        await firebase.auth().signInWithPopup(provider);
+        // Auth state change will handle redirect
+      } catch (err) {
+        document.getElementById('error').textContent = err.message;
+      }
+    };
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        if (allowedEmails.includes(user.email)) {
+          document.getElementById('login-modal').style.display = 'none';
+          window.location = "hello.html";
+        } else {
+          document.getElementById('error').textContent = "Sorry, you are not authorized.";
+          firebase.auth().signOut();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

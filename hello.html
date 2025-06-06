@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hello World</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+  <b>AI</b>
+    <ul>
+        <li><a href="https://medpatch.streamlit.app/">triage</a></li>
+        <li><a href="leafy-paprenjak-58816a.netlify.app">skin cancer</a></li>
+    </ul>
+  <button onclick="logout()">Logout</button>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCV_eZyjilp8Af6961ubU6G_dqzPPTHpj0",
+      authDomain: "login-links-1dc32.firebaseapp.com",
+      projectId: "login-links-1dc32",
+      storageBucket: "login-links-1dc32.appspot.com",
+      messagingSenderId: "910426966101",
+      appId: "1:910426966101:web:df82e72c38d5677c5eacdc",
+      measurementId: "G-E2BLN5VZWG"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('user-email').textContent = user.email;
+      } else {
+        // Not logged in, redirect to login page
+        window.location = "index.html";
+      }
+    });
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location = "index.html";
+      });
+    }
+  </script>
+</body>
+</html>
