@@ -47,7 +47,7 @@
       if (user) {
         if (allowedEmails.includes(user.email)) {
           document.getElementById('login-modal').style.display = 'none';
-          window.location = "hello.html";
+          window.location = "links.html";
         } else {
           document.getElementById('error').textContent = "Sorry, you are not authorized.";
           firebase.auth().signOut();
